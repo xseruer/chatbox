@@ -95,6 +95,7 @@ export const openRouterProvider = defineProvider({
     return new OpenRouter(
       {
         apiKey: config.providerSetting.apiKey || '',
+        apiHost: config.formattedApiHost,
         model: config.model,
         temperature: config.settings.temperature,
         topP: config.settings.topP,

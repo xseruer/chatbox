@@ -407,6 +407,7 @@ function ProviderSettings({ providerId }: { providerId: string }) {
           ModelProviderEnum.Gemini,
           ModelProviderEnum.Ollama,
           ModelProviderEnum.LMStudio,
+          ModelProviderEnum.OpenRouter,
           '',
         ].includes(baseInfo.id) && (
           <Stack gap="xxs">
@@ -436,6 +437,9 @@ function ProviderSettings({ providerId }: { providerId: string }) {
                   normalizeOpenAIApiHostAndPath({
                     apiHost: providerSettings?.apiHost || baseInfo.defaultSettings?.apiHost,
                   }).apiPath
+                : ''}
+              {baseInfo.id === ModelProviderEnum.OpenRouter
+                ? providerSettings?.apiHost || baseInfo.defaultSettings?.apiHost || ''
                 : ''}
               {baseInfo.id === ModelProviderEnum.OpenAIResponses
                 ? normalizeOpenAIResponsesHostAndPath({

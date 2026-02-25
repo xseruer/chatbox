@@ -7,6 +7,7 @@ import type { ModelDependencies } from '../../../types/adapters'
 
 interface Options {
   apiKey: string
+  apiHost?: string
   model: ProviderModelInfo
   temperature?: number
   topP?: number
@@ -33,8 +34,11 @@ export default class OpenRouter extends AbstractAISDKModel {
   }
 
   protected getProvider() {
+    const defaultApiHost = 'https://openrouter.ai/api/v1'
+    const apiHost = this.options.apiHost || defaultApiHost
     return createOpenRouter({
       apiKey: this.options.apiKey,
+      baseURL: apiHost,
       headers: {
         'HTTP-Referer': 'https://chatboxai.app',
         'X-Title': 'Chatbox AI',
@@ -51,9 +55,11 @@ export default class OpenRouter extends AbstractAISDKModel {
   }
 
   public async listModels(): Promise<ProviderModelInfo[]> {
+    const defaultApiHost = 'https://openrouter.ai/api/v1'
+    const apiHost = this.options.apiHost || defaultApiHost
     return fetchRemoteModels(
       {
-        apiHost: 'https://openrouter.ai/api/v1',
+        apiHost,
         apiKey: this.options.apiKey,
         useProxy: false,
       },
